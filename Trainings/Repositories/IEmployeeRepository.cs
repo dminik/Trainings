@@ -1,11 +1,15 @@
-﻿using Trainings.Entities;
+﻿using System;
+
+using Trainings.Entities;
 
 namespace Trainings.Repositories
 {
-	public interface IEmployeeRepository
-	{		
-		bool Insert(Employee employee);
+	public interface IEmployeeRepository : IDisposable
+	{
+		void Insert(Employee employee);
 
-		bool Update(Employee employee);	
+		void Update(Employee employee);
+
+		void Save();
 	}
 }

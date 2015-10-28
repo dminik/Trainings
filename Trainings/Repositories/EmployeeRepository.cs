@@ -1,21 +1,50 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-
+using System.Data.Entity;
 using Trainings.Entities;
 
 namespace Trainings.Repositories
 {
-	public class EmployeeRepository
+	public class EmployeeRepository : IEmployeeRepository
 	{
-		public bool Insert(Employee employee)
-		{			
-			return false;
+		private DataBaseContext Context { get; }
+
+		public EmployeeRepository()
+		{
+			this.Context = new DataBaseContext();
+		}
+		public void Insert(Employee employee)
+		{
+			Context.Employees.Add(employee);
 		}
 
-		public bool Update(Employee employee)
+		public void Update(Employee employee)
 		{
-			return false;
+			Context.Entry(employee).State = EntityState.Modified;
+		}
+
+		public void Save()
+		{
+			Context.SaveChanges();
+		}
+
+		private bool disposed = false;
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!this.disposed)
+			{
+				if (disposing)
+				{
+					Context.Dispose();
+				}
+			}
+			this.disposed = true;
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }
