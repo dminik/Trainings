@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Trainings.Entities
 {
@@ -8,5 +9,7 @@ namespace Trainings.Entities
 		public string Name { get; set; }
 		public string Surname { get; set; }
 		public DateTime Birthdate { get; set; }
+
+		public virtual ICollection<EmployeeTraining> EmployeeTrainings { get; set; }
 	}
 }
